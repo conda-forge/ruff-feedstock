@@ -6,7 +6,7 @@ cargo-bundle-licenses \
   --output ${SRC_DIR}/THIRDPARTY.yml
 
 # Apply PEP517 to install the package
-maturin build --release -i $PYTHON
+maturin build --no-default-features --release -i $PYTHON
 
 cd target/wheels
 

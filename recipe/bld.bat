@@ -7,7 +7,7 @@ cargo-bundle-licenses ^
     --output %SRC_DIR%\THIRDPARTY.yml ^
     || goto :error
 REM Use PEP517 to install the package
-maturin build --release -i %PYTHON%
+maturin build --no-default-features --release -i %PYTHON%
 REM Install wheel
 cd target/wheels
 REM set UTF-8 mode by default
