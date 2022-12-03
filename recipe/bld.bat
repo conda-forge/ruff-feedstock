@@ -1,3 +1,5 @@
+REM https://github.com/rust-lang/cargo/issues/10583#issuecomment-1129997984
+set CARGO_NET_GIT_FETCH_WITH_CLI=true
 REM Create temp folder
 mkdir tmpbuild_%PY_VER%
 set TEMP=%CD%\tmpbuild_%PY_VER%
