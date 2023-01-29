@@ -11,9 +11,9 @@ cargo-bundle-licenses ^
     || goto :error
 popd
 REM Use PEP517 to install the package
-maturin build --no-default-features --release -i %PYTHON%
+maturin build --no-default-features --release -i %PYTHON% -o dist
 REM Install wheel
-cd target/wheels
+cd dist
 REM set UTF-8 mode by default
 chcp 65001
 set PYTHONUTF8=1

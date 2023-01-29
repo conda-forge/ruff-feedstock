@@ -11,9 +11,9 @@ cargo-bundle-licenses \
 popd
 
 # Apply PEP517 to install the package
-maturin build --no-default-features --release -i $PYTHON
+maturin build --no-default-features --release -i $PYTHON -o dist
 
-cd target/wheels
+cd dist
 
 # Install wheel manually
 $PYTHON -m pip install *.whl
