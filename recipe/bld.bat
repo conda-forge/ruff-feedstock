@@ -4,10 +4,12 @@ REM Create temp folder
 mkdir tmpbuild_%PY_VER%
 set TEMP=%CD%\tmpbuild_%PY_VER%
 REM Bundle all downstream library licenses
+pushd ruff_cli
 cargo-bundle-licenses ^
     --format yaml ^
     --output %SRC_DIR%\THIRDPARTY.yml ^
     || goto :error
+popd
 REM Use PEP517 to install the package
 maturin build --no-default-features --release -i %PYTHON%
 REM Install wheel
