@@ -409,4 +409,5 @@ Feedstock Maintainers
 =====================
 
 * [@charliermarsh](https://github.com/charliermarsh/)
+* [@messense](https://github.com/messense/)
 
