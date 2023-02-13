@@ -8,10 +8,6 @@ cargo-bundle-licenses \
   --format yaml \
   --output ${SRC_DIR}/THIRDPARTY.yml
 
-# Apply PEP517 to install the package
-maturin build --no-default-features --release -i $PYTHON
-
-cd target/wheels
-
-# Install wheel manually
-$PYTHON -m pip install *.whl
+# Run the maturin build via pip which works for direct and
+# cross-compiled builds.
+$PYTHON -m pip install . -vv
