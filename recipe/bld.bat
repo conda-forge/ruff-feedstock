@@ -4,7 +4,7 @@ REM Create temp folder
 mkdir tmpbuild_%PY_VER%
 set TEMP=%CD%\tmpbuild_%PY_VER%
 REM Bundle all downstream library licenses
-pushd ruff_cli
+pushd crates/ruff_cli
 cargo-bundle-licenses ^
     --format yaml ^
     --output %SRC_DIR%\THIRDPARTY.yml ^

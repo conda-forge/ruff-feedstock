@@ -3,7 +3,7 @@ set -ex
 # https://github.com/rust-lang/cargo/issues/10583#issuecomment-1129997984
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
-pushd ruff_cli
+pushd crates/ruff_cli
 # Bundle all downstream library licenses
 cargo-bundle-licenses \
   --format yaml \
