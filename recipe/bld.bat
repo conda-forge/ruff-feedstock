@@ -10,13 +10,8 @@ cargo-bundle-licenses ^
     --output %SRC_DIR%\THIRDPARTY.yml ^
     || goto :error
 popd
-REM Use PEP517 to install the package
-maturin build --no-default-features --release -i %PYTHON%
-REM Install wheel
-cd target/wheels
-REM set UTF-8 mode by default
-chcp 65001
+REM Run the maturin build via pip
 set PYTHONUTF8=1
 set PYTHONIOENCODING="UTF-8"
 set TMPDIR=tmpbuild_%PY_VER%
-FOR %%w in (*.whl) DO %PYTHON% -m pip install %%w --no-clean
+%PYTHON% -m pip install . -vv
