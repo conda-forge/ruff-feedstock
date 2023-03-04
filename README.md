@@ -1,11 +1,11 @@
-About ruff
-==========
+About ruff-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ruff-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/charliermarsh/ruff
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ruff-feedstock/blob/main/LICENSE.txt)
 
 Summary: An extremely fast Python linter, written in Rust.
 
