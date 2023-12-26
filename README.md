@@ -9,7 +9,7 @@ Package license: MIT
 
 Summary: An extremely fast Python linter, written in Rust.
 
-Development: https://github.com/charliermarsh/ruff
+Documentation: https://docs.astral.sh/ruff
 
 An extremely fast Python linter, written in Rust. Ruff can be used to
 replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
