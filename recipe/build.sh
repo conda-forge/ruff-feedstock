@@ -10,6 +10,12 @@ cargo-bundle-licenses \
   --output ${SRC_DIR}/THIRDPARTY.yml
 popd
 
+# maturin looks at all .gitignore files
+# see https://github.com/conda-forge/conda-smithy/pull/1818
+mv "${FEEDSTOCK_ROOT}/.gitignore" "${FEEDSTOCK_ROOT}/gitignore"
+
 # Run the maturin build via pip which works for direct and
 # cross-compiled builds.
 $PYTHON -m pip install . -vv
+
+mv "${FEEDSTOCK_ROOT}/gitignore" "${FEEDSTOCK_ROOT}/.gitignore"
