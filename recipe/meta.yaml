@@ -1,4 +1,4 @@
-{% set version = "0.1.9" %}
+{% set version = "0.1.11" %}
 
 package:
   name: ruff
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/r/ruff/ruff-{{ version }}.tar.gz
-  sha256: b041dee2734719ddbb4518f762c982f2e912e7f28b8ee4fe1dee0b15d1b6e800
+  sha256: f9d4d88cb6eeb4dfe20f9f0519bd2eaba8119bde87c3d5065c541dbae2b5a2cb
 
 build:
   number: 1
