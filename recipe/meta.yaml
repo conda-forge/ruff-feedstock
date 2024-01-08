@@ -1,36 +1,37 @@
-{% set name = "ruff" %}
 {% set version = "0.1.11" %}
 
 package:
-  name: {{ name|lower }}
+  name: ruff
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/r/ruff/ruff-{{ version }}.tar.gz
   sha256: f9d4d88cb6eeb4dfe20f9f0519bd2eaba8119bde87c3d5065c541dbae2b5a2cb
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - maturin >=1.0,<2.0                     # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
-    - make
-    - maturin
     - cargo-bundle-licenses
+    - make
   host:
-    - python
+    - maturin >=1.0,<2.0
     - pip
-    - maturin
+    - python
     - toml
   run:
     - python
 
 test:
+  imports:
+    - ruff
   commands:
     - ruff --help
 
@@ -40,14 +41,12 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: An extremely fast Python linter, written in Rust.
-
-  # The remaining entries in this section are optional, but recommended.
   description: |
     An extremely fast Python linter, written in Rust. Ruff can be used to
     replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
     even a subset of pyupgrade and autoflake all while executing tens or
     hundreds of times faster than any individual tool.
-  dev_url: https://github.com/charliermarsh/ruff
+  doc_url: https://docs.astral.sh/ruff
 
 extra:
   recipe-maintainers:
