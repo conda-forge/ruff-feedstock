@@ -10,7 +10,7 @@ source:
   sha256: e261f1baed6291f434ffb1d5c6bd8051d1c2a26958072d38dfbec39b3dda7352
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -33,6 +33,8 @@ requirements:
 test:
   commands:
     - ruff --help
+  imports:
+    - ruff
 
 about:
   home: https://github.com/charliermarsh/ruff
