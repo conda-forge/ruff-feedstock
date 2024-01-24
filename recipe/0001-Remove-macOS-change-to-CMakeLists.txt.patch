@@ -1,0 +1,23 @@
+From 82377f84b105b3713e4f2b38abb66966e78f847e Mon Sep 17 00:00:00 2001
+From: Will Shanks <wshaos@posteo.net>
+Date: Sat, 30 Dec 2023 13:37:03 -0500
+Subject: [PATCH] Remove macOS change to CMakeLists.txt
+
+---
+ CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 25e9d60..0840b22 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.14)
+ 
+ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+ 
+-set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "Target architectures on macOS")
+ 
+ file(READ include/gdstk/gdstk.hpp HEADER_CONTENTS)
+ string(REGEX MATCH "GDSTK_VERSION \"([^\"]*)\"" _ ${HEADER_CONTENTS})
+-- 
+2.43.0
