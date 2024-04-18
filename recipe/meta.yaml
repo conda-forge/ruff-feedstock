@@ -1,5 +1,5 @@
 {% set name = "ruff" %}
-{% set version = "0.3.7" %}
+{% set version = "0.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d5c1aebee5162c2226784800ae031f660c350e7a3402c4d1f8ea4e97e232e3ba
+  sha256: 7457308d9ebf00d6a1c9a26aa755e477787a636c90b823f91cd7d4bea9e89260
 
 build:
   number: 0
@@ -17,6 +17,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
     - make
