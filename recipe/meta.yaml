@@ -1,5 +1,5 @@
 {% set name = "ruff" %}
-{% set version = "0.6.2" %}
+{% set version = "0.6.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 239ee6beb9e91feb8e0ec384204a763f36cb53fb895a1a364618c6abb076b3be
+  sha256: 183b99e9edd1ef63be34a3b51fee0a9f4ab95add123dbf89a71f7b1f0c991983
 
 build:
   number: 0
