@@ -26,6 +26,8 @@ python:
 - 3.13.* *_cp313
 rust_compiler:
 - rust
+rust_compiler_version:
+- '1.76'
 target_platform:
 - linux-ppc64le
 zip_keys:
