@@ -7,7 +7,7 @@ package:
 
 source:
   git_url: https://github.com/astral-sh/ruff.git
-  git_rev: edb8ee6abcb760023b5898b21060de5e912e8ba4
+  git_rev: f3baec49df083f5c17798256e70a3c935bc0a2db
 
 build:
   number: 0
