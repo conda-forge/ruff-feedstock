@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0fc030b6fd14814d69ac0196396f6761921bd20831725c7361e1b8100b818034
+  git_url: https://github.com/astral-sh/ruff.git
+  git_rev: edb8ee6abcb760023b5898b21060de5e912e8ba4
 
 build:
   number: 0
