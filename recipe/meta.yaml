@@ -12,6 +12,9 @@ source:
 build:
   number: 0
 
+  script_env:
+    - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
+
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
