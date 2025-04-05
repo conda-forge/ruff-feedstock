@@ -22,7 +22,7 @@ build:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
     content:
       - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
-      - '${{ PYTHON }} -m pip install . -vv  --no-deps --no-build-isolation'
+      - "${{ PYTHON }} -m pip install . -vv  --no-deps --no-build-isolation"
 
   python:
     version_independent: true
@@ -31,7 +31,9 @@ requirements:
   build:
     - "cargo-bundle-licenses"
     - "${{ compiler('c') }}"
-    - "${{ stdlib('c') }}"
+    - if: not windows
+      then:
+        - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
     - make
     - "maturin >=1.2.2,<2"
@@ -40,8 +42,6 @@ requirements:
         - "python"
         - "cross-python_${{ target_platform }}"
   host:
-    - python
-    - pip
     - maturin
     - toml
   run:
