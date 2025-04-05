@@ -8,15 +8,22 @@ channel_targets:
 - conda-forge main
 cxx_compiler:
 - vs2019
+is_abi3:
+- 'true'
+is_python_min:
+- 'true'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.9.* *_cpython
 rust_compiler:
 - rust
 rust_compiler_version:
 - '1.84'
 target_platform:
 - win-64
+zip_keys:
+- - python
+  - is_python_min
