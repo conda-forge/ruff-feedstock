@@ -1,5 +1,5 @@
 {% set name = "ruff" %}
-{% set version = "0.11.3" %}
+{% set version = "0.11.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8d5fcdb3bb359adc12b757ed832ee743993e7474b9de714bb9ea13c4a8458bf9
+  sha256: f45bd2fb1a56a5a85fae3b95add03fb185a0b30cf47f5edc92aa0355ca1d7407
 
 build:
-  number: 1
+  number: 0
 
   script_env:
     - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
