@@ -15,8 +15,9 @@ build:
   script_env:
     - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
 
-  python_version_independent: true # [is_abi3]
-  skip: True                         # [is_abi3 and not is_python_min]
+  # use fake abi3 package to remove python-abi constraint from runtime requirements.
+  python_version_independent: true  # [is_abi3]
+  skip: True                        # [is_abi3 and not is_python_min]
 
 
 requirements:
