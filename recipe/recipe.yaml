@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+schema_version: 1
+
+context:
+  name: ruff
+  version: 0.11.4
+
+package:
+  name: "${{ name|lower }}"
+  version: "${{ version }}"
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: f45bd2fb1a56a5a85fae3b95add03fb185a0b30cf47f5edc92aa0355ca1d7407
+
+build:
+  number: 1
+  skip: is_abi3 and not is_python_min
+  script:
+    env:
+      JEMALLOC_SYS_WITH_LG_PAGE: ${% if aarch64 or ppc64le %}16${% else %}${% endif %}
+    content:
+      - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
+      - maturin build
+
+  python:
+    version_independent: true
+
+requirements:
+  build:
+    - "cargo-bundle-licenses"
+    - "${{ compiler('c') }}"
+    - "${{ compiler('rust') }}"
+    - "maturin >=1.2.2,<2"
+    - if: build_platform != target_platform
+      then:
+        - "python"
+        - "cross-python_${{ target_platform }}"
+  host:
+    - python
+    - pip
+    - maturin
+    - toml
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - ruff
+  - script:
+      - ruff --help
+
+about:
+  license: MIT
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  summary: An extremely fast Python linter, written in Rust.
+  # The remaining entries in this section are optional, but recommended.
+  description: |
+    An extremely fast Python linter, written in Rust. Ruff can be used to
+    replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
+    even a subset of pyupgrade and autoflake all while executing tens or
+    hundreds of times faster than any individual tool.
+  homepage: https://github.com/astral-sh/ruff
+  repository: https://github.com/astral-sh/ruff
+
+extra:
+  recipe-maintainers:
+    - dhruvmanila
+    - ntBre
+    - zanieb
+    - messense
+    - charliermarsh
