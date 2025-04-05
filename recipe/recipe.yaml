@@ -33,6 +33,7 @@ requirements:
     - "${{ compiler('c') }}"
     - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
+    - make
     - "maturin >=1.2.2,<2"
     - if: build_platform != target_platform
       then:
