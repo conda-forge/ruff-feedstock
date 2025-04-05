@@ -18,6 +18,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+is_abi3:
+- 'true'
 is_python_min:
 - 'true'
 macos_machine:
