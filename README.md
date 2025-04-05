@@ -3,13 +3,13 @@ About ruff-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ruff-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/charliermarsh/ruff
+Home: https://github.com/astral-sh/ruff
 
 Package license: MIT
 
 Summary: An extremely fast Python linter, written in Rust.
 
-Development: https://github.com/charliermarsh/ruff
+Development: https://github.com/astral-sh/ruff
 
 An extremely fast Python linter, written in Rust. Ruff can be used to
 replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
