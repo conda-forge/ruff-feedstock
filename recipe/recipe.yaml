@@ -16,10 +16,10 @@ source:
 
 build:
   number: 1
-  skip: is_python_min != 'true'
+  skip: "is_python_min != 'true'"
   script:
     env:
-      JEMALLOC_SYS_WITH_LG_PAGE: "${% if aarch64 or ppc64le %}16${% else %}${% endif %}"
+      JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
     content:
       - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
       - maturin build
