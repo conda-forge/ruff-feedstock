@@ -46,6 +46,9 @@ requirements:
     - pip
   run:
     - python
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
 
 tests:
   - python:
