@@ -4,7 +4,7 @@ schema_version: 1
 
 context:
   name: ruff
-  version: 0.11.4
+  version: '0.11.4'
 
 package:
   name: "${{ name|lower }}"
@@ -19,7 +19,7 @@ build:
   skip: is_abi3 and not is_python_min
   script:
     env:
-      JEMALLOC_SYS_WITH_LG_PAGE: ${% if aarch64 or ppc64le %}16${% else %}${% endif %}
+      JEMALLOC_SYS_WITH_LG_PAGE: '${% if aarch64 or ppc64le %}16${% else %}${% endif %}'
     content:
       - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
       - maturin build
