@@ -31,7 +31,7 @@ requirements:
   build:
     - "cargo-bundle-licenses"
     - "${{ compiler('c') }}"
-    - if: not windows
+    - if: not win
       then:
         - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
