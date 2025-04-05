@@ -12,6 +12,8 @@ source:
 build:
   number: 0
 
+  python_version_independent: true
+
   script_env:
     - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
 
