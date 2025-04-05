@@ -16,6 +16,7 @@ build:
     - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
 
   # Use a fake abi3 package to remove python-abi from runtime requirements.
+
   python_version_independent: true # [is_abi3]
   skip: True                         # [is_abi3 and not is_python_min]
 
@@ -46,7 +47,7 @@ test:
     - ruff
 
 about:
-  home: https://github.com/charliermarsh/ruff
+  home: https://github.com/astral-sh/ruff
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -58,7 +59,7 @@ about:
     replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
     even a subset of pyupgrade and autoflake all while executing tens or
     hundreds of times faster than any individual tool.
-  dev_url: https://github.com/charliermarsh/ruff
+  dev_url: https://github.com/astral-sh/ruff
 
 extra:
   recipe-maintainers:
