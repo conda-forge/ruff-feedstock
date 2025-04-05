@@ -4,7 +4,7 @@ schema_version: 1
 
 context:
   name: ruff
-  version: '0.11.4'
+  version: "0.11.4"
 
 package:
   name: "${{ name|lower }}"
@@ -16,10 +16,10 @@ source:
 
 build:
   number: 1
-  skip: is_abi3 and not is_python_min
+  skip: is_python_min != 'true'
   script:
     env:
-      JEMALLOC_SYS_WITH_LG_PAGE: '${% if aarch64 or ppc64le %}16${% else %}${% endif %}'
+      JEMALLOC_SYS_WITH_LG_PAGE: "${% if aarch64 or ppc64le %}16${% else %}${% endif %}"
     content:
       - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
       - maturin build
@@ -31,6 +31,7 @@ requirements:
   build:
     - "cargo-bundle-licenses"
     - "${{ compiler('c') }}"
+    # - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
     - "maturin >=1.2.2,<2"
     - if: build_platform != target_platform

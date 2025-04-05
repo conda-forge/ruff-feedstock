@@ -10,8 +10,6 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-is_abi3:
-- 'true'
 is_python_min:
 - 'true'
 macos_machine:
