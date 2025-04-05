@@ -41,9 +41,7 @@ requirements:
       then:
         - "python"
         - "cross-python_${{ target_platform }}"
-  host:
-    - maturin
-    - toml
+  host: []
   run:
     - python
 
