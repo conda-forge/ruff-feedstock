@@ -31,7 +31,7 @@ requirements:
   build:
     - "cargo-bundle-licenses"
     - "${{ compiler('c') }}"
-    # - "${{ stdlib('c') }}"
+    - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
     - "maturin >=1.2.2,<2"
     - if: build_platform != target_platform
