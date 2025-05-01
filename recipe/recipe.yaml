@@ -16,7 +16,6 @@ source:
 
 build:
   number: 1
-  skip: "is_python_min != 'true'"
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
@@ -39,10 +38,10 @@ requirements:
     - "maturin >=1.2.2,<2"
     - if: build_platform != target_platform
       then:
-        - "python"
+        - "python ${{ python_min }}"
         - cross-python_${{ target_platform }}
   host:
-    - python
+    - python ${{ python_min }}.*
     - maturin
     - pip
   run:
