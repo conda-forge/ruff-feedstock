@@ -54,6 +54,7 @@ tests:
   - python:
       imports:
         - ruff
+      python_version: '${{ python_min }}.*'
   - script:
       - ruff --help
 
