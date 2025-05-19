@@ -16,6 +16,7 @@ source:
 
 build:
   number: 1
+  skip: "not match(python, python_min + '.*')"
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
@@ -54,7 +55,6 @@ tests:
   - python:
       imports:
         - ruff
-      python_version: '${{ python_min }}.*'
   - script:
       - ruff --help
 
