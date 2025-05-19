@@ -16,16 +16,23 @@ source:
 
 build:
   number: 1
+
+  # we only build 1 package for each target platform
+  # so only trigger the build on the lowest python version
+  #
+  # the `is_python_min` currently has a rendering bug,
+  # so do not use is_python_min in `skip`
+  # until conda-smithy/issues/2320 is fixed
   skip: "not match(python, python_min + '.*')"
+  python:
+    version_independent: true
+
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
     content:
       - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
       - "${{ PYTHON }} -m pip install . -vv  --no-deps --no-build-isolation"
-
-  python:
-    version_independent: true
 
 requirements:
   build:
