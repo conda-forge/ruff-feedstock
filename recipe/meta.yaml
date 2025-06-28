@@ -10,7 +10,7 @@ source:
   sha256: 806bbc17f1104fd57451a98a58df35388ee3ab422e029e8f5cf30aa4af2c138c
 
 build:
-  number: 0
+  number: 1
 
   script_env:
     - JEMALLOC_SYS_WITH_LG_PAGE=16   # [aarch64 or ppc64le]
