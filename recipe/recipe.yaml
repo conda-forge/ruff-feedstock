@@ -44,7 +44,7 @@ requirements:
         - cross-python_${{ target_platform }}
   host:
     - python ${{ python_min }}.*
-    - maturin
+    - maturin <1.9.0
     - pip
   run:
     - python
