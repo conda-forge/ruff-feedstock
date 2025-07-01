@@ -37,7 +37,7 @@ requirements:
         - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
     - make
-    - "maturin >=1.2.2,<2"
+    - "maturin >=1.2.2,<1.9.0"
     - if: build_platform != target_platform
       then:
         - "python ${{ python_min }}.*"
