@@ -24,10 +24,10 @@ build:
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
-      PYTHONIOENCODING: 'utf-8'
+      PYTHONIOENCODING: "utf-8"
     content:
       - "${{ PYTHON }} -m pip install . -vv  --no-deps --no-build-isolation"
-      - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
   build:
@@ -66,7 +66,6 @@ about:
     - LICENSE
     - THIRDPARTY.yml
   summary: An extremely fast Python linter, written in Rust.
-  # The remaining entries in this section are optional, but recommended.
   description: |
     An extremely fast Python linter, written in Rust. Ruff can be used to
     replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
