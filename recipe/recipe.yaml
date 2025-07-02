@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+schema_version: 1
+
+context:
+  name: ruff
+  version: "0.12.1"
+
+package:
+  name: "${{ name|lower }}"
+  version: "${{ version }}"
+
+source:
+  url: https://pypi.org/packages/source/r/ruff/ruff-${{ version }}.tar.gz
+  sha256: 806bbc17f1104fd57451a98a58df35388ee3ab422e029e8f5cf30aa4af2c138c
+
+build:
+  number: 1
+
+  # we only build 1 package for each target platform
+  python:
+    version_independent: true
+
+  script:
+    env:
+      JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
+      PYTHONIOENCODING: utf-8
+    content:
+      - "${{ PYTHON }} -m pip install -v --use-pep517 --no-deps --no-build-isolation ."
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
+requirements:
+  build:
+    - "cargo-bundle-licenses"
+    - "${{ compiler('c') }}"
+    - if: not win
+      then:
+        - "${{ stdlib('c') }}"
+    - "${{ compiler('rust') }}"
+    - make
+    - "maturin >=1.2.2,<2"
+    - if: build_platform != target_platform
+      then:
+        - "python ${{ python_min }}.*"
+        - cross-python_${{ target_platform }}
+  host:
+    - python ${{ python_min }}.*
+    - maturin <2
+    - pip
+  run:
+    - python
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
+
+tests:
+  - python:
+      imports:
+        - ruff
+  - script:
+      - ruff --help
+
+about:
+  license: MIT
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  summary: An extremely fast Python linter, written in Rust.
+  description: |
+    An extremely fast Python linter, written in Rust. Ruff can be used to
+    replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
+    even a subset of pyupgrade and autoflake all while executing tens or
+    hundreds of times faster than any individual tool.
+  homepage: https://github.com/astral-sh/ruff
+  repository: https://github.com/astral-sh/ruff
+
+extra:
+  recipe-maintainers:
+    - dhruvmanila
+    - ntBre
+    - zanieb
+    - messense
+    - charliermarsh
