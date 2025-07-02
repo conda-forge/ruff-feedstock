@@ -24,9 +24,10 @@ build:
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
+      PYTHONIOENCODING: 'utf-8'
     content:
-      - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
       - "${{ PYTHON }} -m pip install . -vv  --no-deps --no-build-isolation"
+      - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
 
 requirements:
   build:
@@ -37,14 +38,14 @@ requirements:
         - "${{ stdlib('c') }}"
     - "${{ compiler('rust') }}"
     - make
-    - "maturin >=1.2.2,<1.9.0"
+    - "maturin >=1.2.2,<2"
     - if: build_platform != target_platform
       then:
         - "python ${{ python_min }}.*"
         - cross-python_${{ target_platform }}
   host:
     - python ${{ python_min }}.*
-    - maturin <1.9.0
+    - maturin <2
     - pip
   run:
     - python
