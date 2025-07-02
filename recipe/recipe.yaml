@@ -26,8 +26,8 @@ build:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
       PYTHONIOENCODING: utf-8
     content:
-      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - "${{ PYTHON }} -m pip install -v --use-pep517 --no-deps --no-build-isolation ."
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
   build:
