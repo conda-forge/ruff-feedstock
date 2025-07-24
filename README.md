@@ -210,6 +210,3 @@ Feedstock Maintainers
 * [@ntBre](https://github.com/ntBre/)
 * [@zanieb](https://github.com/zanieb/)
 
-
-<!-- dummy commit to enable rerendering -->
-
