@@ -17,7 +17,7 @@ channel_targets:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 python_min:
-- '3.9'
+- '3.10'
 rust_compiler:
 - rust
 rust_compiler_version:
