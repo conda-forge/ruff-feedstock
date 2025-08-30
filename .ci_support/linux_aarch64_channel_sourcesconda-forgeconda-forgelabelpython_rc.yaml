@@ -1,0 +1,24 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '14'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
+cdt_name:
+- conda
+channel_sources:
+- conda-forge,conda-forge/label/python_rc
+channel_targets:
+- conda-forge main
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
+python_min:
+- '3.10'
+rust_compiler:
+- rust
+rust_compiler_version:
+- '1.87'
+target_platform:
+- linux-aarch64
