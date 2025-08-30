@@ -15,7 +15,7 @@ source:
   sha256: c6b09ae8426a65bbee5425b9d0b82796dbb07cb1af045743c79bfb163001165d
 
 build:
-  number: 0
+  number: 1
 
   # we only build 1 package for each target platform
   python:
