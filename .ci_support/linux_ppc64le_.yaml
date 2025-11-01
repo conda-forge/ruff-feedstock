@@ -17,6 +17,6 @@ python_min:
 rust_compiler:
 - rust
 rust_compiler_version:
-- '1.88'
+- '1.89'
 target_platform:
 - linux-ppc64le
