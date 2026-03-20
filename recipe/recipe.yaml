@@ -23,7 +23,7 @@ build:
 
   script:
     env:
-      JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if (aarch64 or ppc64le) else '' }}
+      JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
       PYTHONIOENCODING: utf-8
       CARGO_PROFILE_RELEASE_STRIP: symbols
       CARGO_PROFILE_RELEASE_LTO: fat
