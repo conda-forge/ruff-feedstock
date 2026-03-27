@@ -21,6 +21,7 @@ Current build status
 
 
 <table>
+    
   <tr>
     <td>Azure</td>
     <td>
