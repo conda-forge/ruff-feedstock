@@ -1,62 +1,61 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
-
 schema_version: 1
 
 context:
-  name: ruff
   version: "0.16.5"
 
 package:
-  name: "${{ name|lower }}"
-  version: "${{ version }}"
+  name: ruff
+  version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/r/ruff/ruff-${{ version }}.tar.gz
-  sha256: 1b88500f9ffbcab3dedb0082c9f9492e91ec3d618aac1236a3e0189938f7040b
+  url: https://github.com/astral-sh/ruff/archive/refs/tags/${{ version }}.tar.gz
+  sha256: c447968b1e608450c973d441fa87f949f676064aec2db458b557e8222a4eb252
 
 build:
-  number: 0
-
-  # we only build 1 package for each target platform
-  python:
-    version_independent: true
-
+  number: 1
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
-      PYTHONIOENCODING: utf-8
       CARGO_PROFILE_RELEASE_STRIP: symbols
       CARGO_PROFILE_RELEASE_LTO: fat
     content:
-      - "${{ PYTHON }} -m pip install -v --use-pep517 --no-deps --no-build-isolation ."
-      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+      - if: unix
+        then:
+          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path .
+        else:
+          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml\
+      - if: unix
+        then:
+          - mkdir -p $PREFIX/share/zsh/site-functions $PREFIX/share/bash-completion/completions $PREFIX/share/fish/vendor_completions.d
+          - $PREFIX/bin/ruff generate-shell-completion zsh > $PREFIX/share/zsh/site-functions/_ruff
+          - $PREFIX/bin/ruff generate-shell-completion bash > $PREFIX/share/bash-completion/completions/ruff
+          - $PREFIX/bin/ruff generate-shell-completion fish > $PREFIX/share/fish/vendor_completions.d/ruff.fish
 
 requirements:
   build:
-    - "cargo-bundle-licenses"
-    - "${{ compiler('c') }}"
-    - if: not win
-      then:
-        - "${{ stdlib('c') }}"
-    - "${{ compiler('rust') }}"
-    - make
-    - "maturin >=1.2.2,<2"
-    - if: build_platform != target_platform
-      then:
-        - "python ${{ python_min }}.*"
-        - cross-python_${{ target_platform }}
-  host:
-    - python ${{ python_min }}.*
-    - maturin <2
-    - pip
-  run:
-    - python
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+    - cargo-auditable
+    - if: unix
+      then: make
 
 tests:
-  - python:
-      imports:
+  - package_contents:
+      bin:
         - ruff
+      files:
+        - if: unix
+          then:
+            - share/bash-completion/completions/ruff
+            - share/fish/vendor_completions.d/ruff.fish
+            - share/zsh/site-functions/_ruff
+      strict: true
   - script:
+      - ruff --version
       - ruff --help
 
 about:
@@ -71,6 +70,7 @@ about:
     even a subset of pyupgrade and autoflake all while executing tens or
     hundreds of times faster than any individual tool.
   homepage: https://github.com/astral-sh/ruff
+  documentation: https://docs.astral.sh/ruff
   repository: https://github.com/astral-sh/ruff
 
 extra:
