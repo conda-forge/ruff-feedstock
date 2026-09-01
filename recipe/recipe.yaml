@@ -22,9 +22,9 @@ build:
     content:
       - if: unix
         then:
-          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path .
+          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/ruff
         else:
-          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .
+          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .\crates\ruff
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml\
       - if: unix
         then:
