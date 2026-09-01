@@ -11,6 +11,8 @@ Summary: An extremely fast Python linter, written in Rust.
 
 Development: https://github.com/astral-sh/ruff
 
+Documentation: https://docs.astral.sh/ruff
+
 An extremely fast Python linter, written in Rust. Ruff can be used to
 replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
 even a subset of pyupgrade and autoflake all while executing tens or
@@ -45,6 +47,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18173&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ruff-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18173&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ruff-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr>

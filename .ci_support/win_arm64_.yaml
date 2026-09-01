@@ -11,4 +11,4 @@ rust_compiler:
 rust_compiler_version:
 - '1.96'
 target_platform:
-- win-64
+- win-arm64
