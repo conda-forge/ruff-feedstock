@@ -25,7 +25,7 @@ build:
           - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/ruff
         else:
           - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .\crates\ruff
-      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml\
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - if: unix
         then:
           - mkdir -p $PREFIX/share/zsh/site-functions $PREFIX/share/bash-completion/completions $PREFIX/share/fish/vendor_completions.d
