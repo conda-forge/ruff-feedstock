@@ -18,7 +18,5 @@ macos_machine:
 - arm64-apple-darwin20.0.0
 rust_compiler:
 - rust
-rust_compiler_version:
-- '1.96'
 target_platform:
 - osx-arm64

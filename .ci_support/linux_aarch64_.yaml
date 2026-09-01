@@ -14,7 +14,5 @@ docker_image:
 - quay.io/condaforge/linux-anvil-aarch64:alma10
 rust_compiler:
 - rust
-rust_compiler_version:
-- '1.96'
 target_platform:
 - linux-aarch64
