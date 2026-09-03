@@ -13,7 +13,7 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma10
 python_min:
-- '3.10'
+- '3.11'
 rust_compiler:
 - rust
 rust_compiler_version:
