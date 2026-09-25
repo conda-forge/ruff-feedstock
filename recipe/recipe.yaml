@@ -4,7 +4,7 @@ schema_version: 1
 
 context:
   name: ruff
-  version: "0.16.8"
+  version: "0.16.9"
 
 package:
   name: "${{ name|lower }}"
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/r/ruff/ruff-${{ version }}.tar.gz
-  sha256: 9247bf92b5f04d825c8639a4fe423ec2e4222acd9222e58412b0dab7e442798b
+  sha256: 12b625c6cfba78d285d9f48eda5f053374f1e53cb10ef17342a383750db99161
 
 build:
   number: 0
