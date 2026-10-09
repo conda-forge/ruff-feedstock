@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.16.10"
+  version: "0.17.0"
 
 package:
   name: ruff
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://github.com/astral-sh/ruff/archive/refs/tags/${{ version }}.tar.gz
-  sha256: c8ea3637edc68ac9d17c9143a2a432540370e3768a220b9978e931e5f89d6260
+  sha256: 2df40dc573eb751154b49055d0949668ec4f72f928d9c7fe5d86f451bfb3d7d5
 
 build:
-  number: 1
+  number: 0
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
@@ -67,6 +67,8 @@ about:
   license_file:
     - LICENSE
     - THIRDPARTY.yml
+    - crates/ruff_unicode_names2/LICENSE-MIT
+    - crates/ruff_unicode_names2/data/LICENSE-UNICODE
   summary: An extremely fast Python linter, written in Rust.
   description: |
     An extremely fast Python linter, written in Rust. Ruff can be used to
