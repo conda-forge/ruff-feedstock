@@ -1,62 +1,65 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
-
 schema_version: 1
 
 context:
-  name: ruff
-  version: "0.16.10"
+  version: "0.17.0"
 
 package:
-  name: "${{ name|lower }}"
-  version: "${{ version }}"
+  name: ruff
+  version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/r/ruff/ruff-${{ version }}.tar.gz
-  sha256: eff4728c4eaae93f0955cd264d24b2ab348e74bf59986ccf282ba6dc16b3b017
+  url: https://github.com/astral-sh/ruff/archive/refs/tags/${{ version }}.tar.gz
+  sha256: 2df40dc573eb751154b49055d0949668ec4f72f928d9c7fe5d86f451bfb3d7d5
 
 build:
   number: 0
-
-  # we only build 1 package for each target platform
-  python:
-    version_independent: true
-
   script:
     env:
       JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
-      PYTHONIOENCODING: utf-8
       CARGO_PROFILE_RELEASE_STRIP: symbols
       CARGO_PROFILE_RELEASE_LTO: fat
     content:
-      - "${{ PYTHON }} -m pip install -v --use-pep517 --no-deps --no-build-isolation ."
+      # rust-lld cannot handle some ppc64le relocations emitted by the jemalloc
+      # C sources, so fall back to the bfd linker there
+      - if: target_platform == "linux-ppc64le"
+        then: export CARGO_BUILD_RUSTFLAGS="${CARGO_BUILD_RUSTFLAGS:-} -C link-arg=-fuse-ld=bfd"
+      - if: unix
+        then:
+          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/ruff
+        else:
+          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .\crates\ruff
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+      - if: unix
+        then:
+          - mkdir -p $PREFIX/share/zsh/site-functions $PREFIX/share/bash-completion/completions $PREFIX/share/fish/vendor_completions.d
+          - $PREFIX/bin/ruff generate-shell-completion zsh > $PREFIX/share/zsh/site-functions/_ruff
+          - $PREFIX/bin/ruff generate-shell-completion bash > $PREFIX/share/bash-completion/completions/ruff
+          - $PREFIX/bin/ruff generate-shell-completion fish > $PREFIX/share/fish/vendor_completions.d/ruff.fish
 
 requirements:
   build:
-    - "cargo-bundle-licenses"
-    - "${{ compiler('c') }}"
-    - if: not win
-      then:
-        - "${{ stdlib('c') }}"
-    - "${{ compiler('rust') }}"
-    - make
-    - "maturin >=1.2.2,<2"
-    - if: build_platform != target_platform
-      then:
-        - "python ${{ python_min }}.*"
-        - cross-python_${{ target_platform }}
-  host:
-    - python ${{ python_min }}.*
-    - maturin <2
-    - pip
-  run:
-    - python
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+    - cargo-auditable
+    - if: unix
+      then: make
 
 tests:
-  - python:
-      imports:
+  - package_contents:
+      bin:
         - ruff
+      files:
+        - if: unix
+          then:
+            - share/bash-completion/completions/ruff
+            - share/fish/vendor_completions.d/ruff.fish
+            - share/zsh/site-functions/_ruff
+      strict: true
   - script:
+      - ruff --version
       - ruff --help
 
 about:
@@ -64,6 +67,8 @@ about:
   license_file:
     - LICENSE
     - THIRDPARTY.yml
+    - crates/ruff_unicode_names2/LICENSE-MIT
+    - crates/ruff_unicode_names2/data/LICENSE-UNICODE
   summary: An extremely fast Python linter, written in Rust.
   description: |
     An extremely fast Python linter, written in Rust. Ruff can be used to
@@ -71,6 +76,7 @@ about:
     even a subset of pyupgrade and autoflake all while executing tens or
     hundreds of times faster than any individual tool.
   homepage: https://github.com/astral-sh/ruff
+  documentation: https://docs.astral.sh/ruff
   repository: https://github.com/astral-sh/ruff
 
 extra:
