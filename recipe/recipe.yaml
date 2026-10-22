@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.17.1"
+  version: "0.17.2"
 
 package:
   name: ruff
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/astral-sh/ruff/archive/refs/tags/${{ version }}.tar.gz
-  sha256: 3ba68fddb615f905e854f694a2859fd6532e8522141975bbbdbed71fc2112cc8
+  sha256: 32bcb3363a9b5e0111c25c5cd50069b2bd92e370695ba981d5dfbc48e7ecb1a0
 
 build:
   number: 0
