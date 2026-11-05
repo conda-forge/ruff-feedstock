@@ -96,7 +96,9 @@ outputs:
       - python:
           imports:
             - ruff
-          python_version: ${{ python_min }}.*
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
       - requirements:
           run:
             - python ${{ python_min }}.*
@@ -128,6 +130,7 @@ about:
   repository: https://github.com/astral-sh/ruff
 
 extra:
+  feedstock-name: ruff
   recipe-maintainers:
     - dhruvmanila
     - ntBre
