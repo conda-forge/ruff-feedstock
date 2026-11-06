@@ -4,63 +4,113 @@ schema_version: 1
 context:
   version: "0.17.4"
 
-package:
-  name: ruff
+recipe:
+  name: ruff-split
   version: ${{ version }}
 
 source:
   url: https://github.com/astral-sh/ruff/archive/refs/tags/${{ version }}.tar.gz
   sha256: a466d837b406c888f4f76e4be808658f36846288aa87f81ac89afcf078ad386a
+  patches:
+    # let `ruff.find_ruff_bin()` find the executable in `%PREFIX%\Library\bin`
+    - find-ruff-conda-windows.patch
 
 build:
-  number: 0
-  script:
-    env:
-      JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
-      CARGO_PROFILE_RELEASE_STRIP: symbols
-      CARGO_PROFILE_RELEASE_LTO: fat
-    content:
-      # rust-lld cannot handle some ppc64le relocations emitted by the jemalloc
-      # C sources, so fall back to the bfd linker there
-      - if: target_platform == "linux-ppc64le"
-        then: export CARGO_BUILD_RUSTFLAGS="${CARGO_BUILD_RUSTFLAGS:-} -C link-arg=-fuse-ld=bfd"
-      - if: unix
-        then:
-          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/ruff
-        else:
-          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .\crates\ruff
-      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-      - if: unix
-        then:
-          - mkdir -p $PREFIX/share/zsh/site-functions $PREFIX/share/bash-completion/completions $PREFIX/share/fish/vendor_completions.d
-          - $PREFIX/bin/ruff generate-shell-completion zsh > $PREFIX/share/zsh/site-functions/_ruff
-          - $PREFIX/bin/ruff generate-shell-completion bash > $PREFIX/share/bash-completion/completions/ruff
-          - $PREFIX/bin/ruff generate-shell-completion fish > $PREFIX/share/fish/vendor_completions.d/ruff.fish
+  number: 1
 
-requirements:
-  build:
-    - ${{ stdlib('c') }}
-    - ${{ compiler('c') }}
-    - ${{ compiler('rust') }}
-    - cargo-bundle-licenses
-    - cargo-auditable
-    - if: unix
-      then: make
+outputs:
+  - package:
+      name: ruff
+    build:
+      script:
+        env:
+          JEMALLOC_SYS_WITH_LG_PAGE: ${{ '16' if aarch64 else '' }}
+          CARGO_PROFILE_RELEASE_STRIP: symbols
+          CARGO_PROFILE_RELEASE_LTO: fat
+        content:
+          # rust-lld cannot handle some ppc64le relocations emitted by the jemalloc
+          # C sources, so fall back to the bfd linker there
+          - if: target_platform == "linux-ppc64le"
+            then: export CARGO_BUILD_RUSTFLAGS="${CARGO_BUILD_RUSTFLAGS:-} -C link-arg=-fuse-ld=bfd"
+          - if: unix
+            then:
+              - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/ruff
+            else:
+              - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .\crates\ruff
+          - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+          - if: unix
+            then:
+              - mkdir -p $PREFIX/share/zsh/site-functions $PREFIX/share/bash-completion/completions $PREFIX/share/fish/vendor_completions.d
+              - $PREFIX/bin/ruff generate-shell-completion zsh > $PREFIX/share/zsh/site-functions/_ruff
+              - $PREFIX/bin/ruff generate-shell-completion bash > $PREFIX/share/bash-completion/completions/ruff
+              - $PREFIX/bin/ruff generate-shell-completion fish > $PREFIX/share/fish/vendor_completions.d/ruff.fish
 
-tests:
-  - package_contents:
-      bin:
-        - ruff
-      files:
+    requirements:
+      build:
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('rust') }}
+        - cargo-bundle-licenses
+        - cargo-auditable
         - if: unix
-          then:
-            - share/bash-completion/completions/ruff
-            - share/fish/vendor_completions.d/ruff.fish
-            - share/zsh/site-functions/_ruff
-      strict: true
-  - script:
-      - ruff --version
-      - ruff --help
+          then: make
+
+    tests:
+      - package_contents:
+          bin:
+            - ruff
+          files:
+            - if: unix
+              then:
+                - share/bash-completion/completions/ruff
+                - share/fish/vendor_completions.d/ruff.fish
+                - share/zsh/site-functions/_ruff
+          strict: true
+      - script:
+          - ruff --version
+          - ruff --help
+
+  - package:
+      name: python-ruff
+    build:
+      noarch: python
+      # the noarch package only needs to be built (and tested) once per native
+      # platform; skip the cross-compiled configurations
+      skip: build_platform != target_platform
+      script:
+        - if: unix
+          then: cp ${{ RECIPE_DIR }}/python-ruff/pyproject.toml python/pyproject.toml
+          else: copy %RECIPE_DIR%\python-ruff\pyproject.toml python\pyproject.toml
+        - ${{ PYTHON }} -m pip install -vv --no-deps --no-build-isolation ./python
+    requirements:
+      host:
+        - python ${{ python_min }}.*
+        - pip
+        - hatchling
+      run:
+        - python >=${{ python_min }}
+        # use the ruff executable from the `ruff` output; the version is pinned
+        # without the build string since this package is noarch
+        - ruff ==${{ version }}
+    tests:
+      - python:
+          imports:
+            - ruff
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
+      - requirements:
+          run:
+            - python ${{ python_min }}.*
+        script:
+          - python -m ruff --version
+          - python -m ruff --help
+          - python -c "import ruff, os; p = ruff.find_ruff_bin(); print(p); assert os.path.isfile(p)"
+    about:
+      license: MIT
+      license_file:
+        - LICENSE
+      summary: Python package to locate and run the ruff executable (`import ruff`, `python -m ruff`).
 
 about:
   license: MIT
@@ -80,6 +130,7 @@ about:
   repository: https://github.com/astral-sh/ruff
 
 extra:
+  feedstock-name: ruff
   recipe-maintainers:
     - dhruvmanila
     - ntBre

@@ -3,11 +3,33 @@ About ruff-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ruff-feedstock/blob/main/LICENSE.txt)
 
+
+About ruff
+----------
+
 Home: https://github.com/astral-sh/ruff
 
 Package license: MIT
 
 Summary: An extremely fast Python linter, written in Rust.
+
+Development: https://github.com/astral-sh/ruff
+
+Documentation: https://docs.astral.sh/ruff
+
+An extremely fast Python linter, written in Rust. Ruff can be used to
+replace Flake8 (plus a variety of plugins), isort, pydocstyle, yesqa, and
+even a subset of pyupgrade and autoflake all while executing tens or
+hundreds of times faster than any individual tool.
+
+About python-ruff
+-----------------
+
+Home: https://github.com/astral-sh/ruff
+
+Package license: MIT
+
+Summary: Python package to locate and run the ruff executable (`import ruff`, `python -m ruff`).
 
 Development: https://github.com/astral-sh/ruff
 
@@ -69,6 +91,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-python--ruff-green.svg)](https://anaconda.org/conda-forge/python-ruff) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-ruff.svg)](https://anaconda.org/conda-forge/python-ruff) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-ruff.svg)](https://anaconda.org/conda-forge/python-ruff) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-ruff.svg)](https://anaconda.org/conda-forge/python-ruff) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-ruff-green.svg)](https://anaconda.org/conda-forge/ruff) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/ruff.svg)](https://anaconda.org/conda-forge/ruff) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ruff.svg)](https://anaconda.org/conda-forge/ruff) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/ruff.svg)](https://anaconda.org/conda-forge/ruff) |
 
 Installing ruff
@@ -88,7 +111,7 @@ How to use
 <summary>With conda</summary>
 
 ```
-conda install ruff
+conda install python-ruff ruff
 ```
 
 </details>
@@ -97,7 +120,7 @@ conda install ruff
 <summary>With mamba</summary>
 
 ```
-mamba install ruff
+mamba install python-ruff ruff
 ```
 
 </details>
@@ -107,9 +130,9 @@ mamba install ruff
 
 ```
 # for adding to your local project
-pixi add ruff
+pixi add python-ruff ruff
 # for installing globally
-pixi global install ruff
+pixi global install python-ruff ruff
 ```
 
 </details>
@@ -117,13 +140,13 @@ pixi global install ruff
 Search package versions
 -----------------------
 
-It is possible to list all of the versions of `ruff` available on your platform:
+It is possible to list all of the versions of `python-ruff` available on your platform:
 
 <details>
 <summary>With conda</summary>
 
 ```
-conda search ruff --channel conda-forge
+conda search python-ruff --channel conda-forge
 ```
 
 </details>
@@ -132,7 +155,7 @@ conda search ruff --channel conda-forge
 <summary>With mamba</summary>
 
 ```
-mamba search ruff --channel conda-forge
+mamba search python-ruff --channel conda-forge
 ```
 
 </details>
@@ -141,7 +164,7 @@ mamba search ruff --channel conda-forge
 <summary>With pixi</summary>
 
 ```
-pixi search ruff --channel conda-forge
+pixi search python-ruff --channel conda-forge
 ```
 
 </details>
@@ -151,13 +174,13 @@ pixi search ruff --channel conda-forge
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search ruff --channel conda-forge
+mamba repoquery search python-ruff --channel conda-forge
 
-# List packages depending on `ruff`:
-mamba repoquery whoneeds ruff --channel conda-forge
+# List packages depending on `python-ruff`:
+mamba repoquery whoneeds python-ruff --channel conda-forge
 
-# List dependencies of `ruff`:
-mamba repoquery depends ruff --channel conda-forge
+# List dependencies of `python-ruff`:
+mamba repoquery depends python-ruff --channel conda-forge
 ```
 
 </details>
