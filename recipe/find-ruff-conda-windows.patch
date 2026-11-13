@@ -1,0 +1,11 @@
+--- a/python/ruff/_find_ruff.py
++++ b/python/ruff/_find_ruff.py
+@@ -18,6 +18,8 @@ def find_ruff_bin() -> str:
+         sysconfig.get_path("scripts"),
+         # The scripts directory for the base prefix
+         sysconfig.get_path("scripts", vars={"base": sys.base_prefix}),
++        # conda environments on Windows install executables into `<prefix>/Library/bin`
++        os.path.join(sys.prefix, "Library", "bin") if sys.platform == "win32" else None,
+         # Above the package root, e.g., from `pip install --prefix` or `uv run --with`
+         (
+             # On Windows, with module path `<prefix>/Lib/site-packages/ruff`

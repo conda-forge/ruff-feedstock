@@ -1,0 +1,24 @@
+# Minimal build configuration for the pure-Python `ruff` package shipped as
+# the `python-ruff` conda package. The `ruff` executable itself comes from the
+# `ruff` conda package, so (unlike upstream's maturin build) no binary is built.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ruff"
+dynamic = ["version"]
+description = "An extremely fast Python linter and code formatter, written in Rust."
+requires-python = ">=3.7"
+license = "MIT"
+
+[project.urls]
+Repository = "https://github.com/astral-sh/ruff"
+Documentation = "https://docs.astral.sh/ruff/"
+
+[tool.hatch.version]
+source = "env"
+variable = "PKG_VERSION"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ruff"]
