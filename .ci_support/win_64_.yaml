@@ -6,6 +6,8 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+python_min:
+- '3.11'
 rust_compiler:
 - rust
 target_platform:
